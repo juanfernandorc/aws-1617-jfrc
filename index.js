@@ -3,6 +3,8 @@ var express = require("express");
 var port = ( process.env.PORT || 3000);
 var app = express();
 var baseAPI = "/api/v1";
+var bodyParser = requier("body-parser");
+app.use(bodyParser.json());
 
 var contacts = [
     {name: "pepe", phone:"12345", email:"pepe@pepe.com"},
