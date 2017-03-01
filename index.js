@@ -3,7 +3,7 @@ var express = require("express");
 var port = ( process.env.PORT || 3000);
 var app = express();
 var baseAPI = "/api/v1";
-var bodyParser = requier("body-parser");
+var bodyParser = require("body-parser");
 app.use(bodyParser.json());
 
 var contacts = [
