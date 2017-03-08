@@ -9,68 +9,56 @@ var db = new dataStore({
     autoload : true
 });
 
-var port = (process.env.PORT || 10000);
+var port = (process.env.PORT || 16778);
+var baseAPI = "/api/v1";
+
 
 var app = express();
 app.use(bodyParser.json());
 
-var port = (process.env.PORT || 3000);  
-
-var baseAPI = "/api/v1";
-
-//var contacts = [];
-
 app.get(baseAPI + "/contacts", (request, response) => {
-    // var contacts;
-    
-    db.find({}, (err, contacts)=> {
-        response.send(contacts);
+    console.log("GET /contacts"); 
+    db.find({},(err,contacts)=>{
+        response.send(contacts);    
     });
-    
-    console.log("GET /contacts");
 });
 
 app.post(baseAPI + "/contacts", (request, response) => {
-
+    console.log("POST /contacts");
     var contact = request.body;
     db.insert(contact);
-
     response.sendStatus(201);
-
-    console.log("POST /contacts");
 });
 
 app.delete(baseAPI + "/contacts", (request, response) => {
-
-    var contact = request.body;
-    contacts = [];
-
-    response.sendStatus(200);
-
     console.log("DELETE /contacts");
+
+    db.remove({},{ multi: true},(err,numRemoved)=>{
+        console.log("contacts removed:"+numRemoved);
+        response.sendStatus(200);    
+    });
+
 });
 
 app.get(baseAPI + "/contacts/:name", (request, response) => {
+    console.log("GET /contacts/"+name);
     var name = request.params.name;
 
-    var contact = contacts.filter((contact) => {
-        return (contact.name == name);
-    })[0];
-    
-    if (contact)
-        response.send(contact);
-    else    
-        response.sendStatus(404);
-        
-    console.log("GET /contacts/"+name);
+    db.find({name:name},(err,contacts)=>{
+        if (contacts.length == 0)
+            response.sendStatus(404);
+        else
+            response.send(contacts[0]);  
+    });
 });
 
 
 app.delete(baseAPI + "/contacts/:name", (request, response) => {
     var name = request.params.name;
 
-    contacts = contacts.filter((contact) => {
-        return (contact.name != name);
+    db.remove({name:name},{ multi: true},(err,numRemoved)=>{
+        console.log("contacts removed:"+numRemoved);
+        response.sendStatus(200);    
     });
 
     response.sendStatus(200);
@@ -82,16 +70,14 @@ app.put(baseAPI + "/contacts/:name", (request, response) => {
     var name = request.params.name;
     var updatedContact = request.body;
 
-    contacts = contacts.map((contact) => {
-        if (contact.name == name) {
-            return updatedContact;
-        }
-        else {
-            return contact;
-        }
+    db.update({name:name},updatedContact,{},(err,numUpdates)=>{
+        console.log("contacts updated:"+numUpdates);
+        if (numUpdates == 0)
+            response.sendStatus(404);    
+        else
+            response.sendStatus(200);    
+        
     });
-    
-    response.sendStatus(200);
 
     console.log("UPDATE /contacts/"+name);
 });
