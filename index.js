@@ -61,7 +61,6 @@ app.delete(baseAPI + "/contacts/:name", (request, response) => {
         response.sendStatus(200);    
     });
 
-    response.sendStatus(200);
     console.log("DELETE /contacts/" + name);
 });
 
