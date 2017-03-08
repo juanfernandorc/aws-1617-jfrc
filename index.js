@@ -28,12 +28,13 @@ app.get(baseAPI+"/contacts/:name", (request,response) => {
    console.log("GET /contacts");
 });
 */
-
+// prueba
 app.post(baseAPI+"/contacts", (request,response) => {
     var contact = request.body;
-    contacts.push(contact);
+    contacts.push(contact); 
     response.sendStatus(201);
    console.log("POST /contacts");
+   console.log("contact to be inserted: " + contact);
 });
 
 
