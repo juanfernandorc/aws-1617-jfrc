@@ -43,8 +43,18 @@ app.delete(baseAPI+"/contacts", (request,response) => {
     contacts = [];
     response.sendStatus(201);
    console.log("DELETE /contacts");
-})
+});
 
 app.listen(port, () => {
     console.log("Server up and running!");
+});
+
+app.delete(baseAPI+"/contacts/:name", (request,response) => {
+    var name = request.params.name;
+    contacts = contacts.filter((contact) =>
+    {
+        return(contact.name != name);
+    });
+    response.sendStatus(200);
+   console.log("DELETE /contacts" + name);
 });
