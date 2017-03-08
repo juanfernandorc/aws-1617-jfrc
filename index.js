@@ -17,11 +17,29 @@ app.get(baseAPI+"/contacts", (request,response) => {
    console.log("GET /contacts");
 });
 
+app.get(baseAPI+"/contacts/:name", (request,response) => {
+    var name = request.params.name;
+    var filteredContacts = contacts.filter((contact) => {
+        return (contact.name == name);
+    })[0];
+    
+    response.send(contacts);
+   console.log("GET /contacts");
+});
+
 app.post(baseAPI+"/contacts", (request,response) => {
     var contact = request.body;
     contacts.push(contact);
     response.sendStatus(201);
    console.log("POST /contacts");
+});
+
+
+app.delete(baseAPI+"/contacts", (request,response) => {
+    var contact = request.body;
+    contacts = [];
+    response.sendStatus(201);
+   console.log("DELETE /contacts");
 })
 
 app.listen(port, () => {
