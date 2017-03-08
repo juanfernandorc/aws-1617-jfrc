@@ -17,6 +17,7 @@ app.get(baseAPI+"/contacts", (request,response) => {
    console.log("GET /contacts");
 });
 
+/*
 app.get(baseAPI+"/contacts/:name", (request,response) => {
     var name = request.params.name;
     var filteredContacts = contacts.filter((contact) => {
@@ -26,6 +27,7 @@ app.get(baseAPI+"/contacts/:name", (request,response) => {
     response.send(contacts);
    console.log("GET /contacts");
 });
+*/
 
 app.post(baseAPI+"/contacts", (request,response) => {
     var contact = request.body;
