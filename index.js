@@ -46,3 +46,13 @@ app.delete(baseAPI+"/contacts/:name", (request,response) => {
     response.sendStatus(200);
    console.log("DELETE /contacts" + name);
 });
+
+app.get(baseAPI+"/contacts/:name", (request,response) => {
+    var name = request.params.name;
+    var filteredContacts = contacts.filter((contact) => {
+        return (contact.name == name);
+    })[0];
+    
+    response.send(contacts);
+   console.log("GET /contacts");
+});
