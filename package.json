@@ -14,7 +14,7 @@
     "type": "git",
     "url": "git://github.com/juanfernandorc/aws-1617-jfrc2.git",
     "github": "https://github.com/juanfernandorc/aws-1617-jfrc2"
-  }
+  },
   "dependencies": {
     "body-parser": "^1.16.1",
     "cool-ascii-faces": "^1.3.4",
