@@ -12,8 +12,10 @@ var db = new dataStore({
 var port = (process.env.PORT || 16778);
 var baseAPI = "/api/v1";
 
-
 var app = express();
+
+app.use(express.static(path.join(__dirname, "public")));
+
 app.use(bodyParser.json());
 
 app.get(baseAPI + "/contacts", (request, response) => {
