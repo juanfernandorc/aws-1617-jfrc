@@ -1,10 +1,12 @@
+"use strict";
+
 var express = require("express");
 var bodyParser = require("body-parser");
 var path = require('path');
-var dataStore = require('nedb');
+var DataStore = require('nedb');
 var dbFileName = path.join(__dirname, 'contacts.json');
 
-var db = new dataStore({
+var db = new DataStore({
     filename : dbFileName,
     autoload : true
 });
@@ -47,10 +49,14 @@ app.get(baseAPI + "/contacts/:name", (request, response) => {
     var name = request.params.name;
 
     db.find({name:name},(err,contacts)=>{
-        if (contacts.length == 0)
+        if (contacts.length === 0)
+        {
             response.sendStatus(404);
+        }
         else
+        {
             response.send(contacts[0]);  
+        }
     });
 });
 
@@ -73,10 +79,14 @@ app.put(baseAPI + "/contacts/:name", (request, response) => {
 
     db.update({name:name},updatedContact,{},(err,numUpdates)=>{
         console.log("contacts updated:"+numUpdates);
-        if (numUpdates == 0)
+        if (numUpdates === 0)
+        {
             response.sendStatus(404);    
+        }
         else
+        {
             response.sendStatus(200);    
+        }
         
     });
 
