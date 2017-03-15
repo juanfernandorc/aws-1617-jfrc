@@ -12,8 +12,8 @@
   "license": "ISC",
   "respository": {
     "type": "git",
-    "url": "git://github.com/juanfernandorc/aws-1617-jfrc2.git",
-    "github": "https://github.com/juanfernandorc/aws-1617-jfrc2"
+    "url": "git://github.com/juanfernandorc/aws-1617-jfrc.git",
+    "github": "https://github.com/juanfernandorc/aws-1617-jfrc"
   },
   "dependencies": {
     "body-parser": "^1.16.1",
